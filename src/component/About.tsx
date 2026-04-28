@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Logo = () => (
     <div className="flex items-center gap-2">
@@ -15,7 +16,7 @@ const Logo = () => (
 const About = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = React.useState('All Works');
-
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const categories = ['All Works', 'Wedding', 'Haldi', 'Mehendi', 'Birthday', 'Fashion'];
 
     const galleryItems = [
@@ -36,6 +37,8 @@ const About = () => {
             {/* Navigation */}
             <nav className="w-full py-4 px-8 sticky top-0 bg-white shadow-sm z-50 flex items-center justify-between">
                 <Logo />
+
+                {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
                     <a href="/" className="hover:text-rose-500 transition-colors">Home</a>
                     <a href="/about" className="hover:text-rose-500 transition-colors">About</a>
@@ -44,6 +47,19 @@ const About = () => {
                     <button onClick={() => {
                         navigate("/contact-us")
                     }} className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-full font-medium transition-colors cursor-pointer">Contact Us</button>
+                </div>
+
+                {/* Mobile Menu Button */}
+                <div className="md:hidden flex items-center">
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-600 hover:text-rose-500 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            {isMobileMenuOpen ? (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            ) : (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            )}
+                        </svg>
+                    </button>
                 </div>
             </nav>
 
@@ -77,8 +93,8 @@ const About = () => {
                             key={cat}
                             onClick={() => setActiveTab(cat)}
                             className={`px-8 py-2.5 rounded-full text-sm font-bold transition-all border-2 ${activeTab === cat
-                                    ? 'bg-rose-500 border-rose-500 text-white shadow-lg shadow-rose-200'
-                                    : 'bg-white border-gray-100 text-gray-500 hover:border-rose-200 hover:text-rose-500'
+                                ? 'bg-rose-500 border-rose-500 text-white shadow-lg shadow-rose-200'
+                                : 'bg-white border-gray-100 text-gray-500 hover:border-rose-200 hover:text-rose-500'
                                 }`}
                         >
                             {cat}
